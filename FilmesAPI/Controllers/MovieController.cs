@@ -32,7 +32,7 @@ public class MovieController : ControllerBase
     }
 
 
-
+    [HttpGet("{index}")]
     public void SortMoviesById(int id)
     {
         // using linq to do a conditional that sort movie by the id informated in get method, the id is the paramether of this method
