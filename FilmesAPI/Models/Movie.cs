@@ -5,6 +5,8 @@ namespace FilmesAPI.Models;
 
 public class Movie
 {
+    public int Id { get; set; }
+    
     // i can use conditionals at instances that i have in my class -- >
     // required string, if empty, the message error will appears -- >
     [Required(ErrorMessage = "You need to type the title of the movie")]
