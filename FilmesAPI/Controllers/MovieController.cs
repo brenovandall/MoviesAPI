@@ -1,4 +1,5 @@
-﻿using FilmesAPI.Models;
+﻿using FilmesAPI.Data;
+using FilmesAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FilmesAPI.Controllers;
@@ -10,16 +11,21 @@ namespace FilmesAPI.Controllers;
 // ControllBase is an inheritance that needs to be declared in a controller class
 public class MovieController : ControllerBase
 {
-    private static List<Movie> movies = new List<Movie>();
-    private static int index = 0;
+    // using the context class -- > 
+    private DataMovieContext _context;
+    // ctor of context, then... need to use context props to reference data
+    public MovieController(DataMovieContext context)
+    {
+        _context = context;
+    }
 
     // declaring the api method <get, post, ...>
     [HttpPost]
     public IActionResult AddMovieOnTheList([FromBody] Movie movie)
     {
-        movie.Id = index++;
         // using function " [FromBody] " because the paramether will be declared to the body requisition fields -- >
-        movies.Add(movie);
+        _context.Movies.Add(movie);
+        _context.SaveChanges();
         //Console.WriteLine(movie.Id);
         //Console.WriteLine(movie.Title);
         //Console.WriteLine(movie.Genre);
@@ -33,7 +39,7 @@ public class MovieController : ControllerBase
     public IEnumerable<Movie> GetMoviesList([FromQuery] int skip = 0, [FromQuery] int take = 10) // return all movies that were send with post method
     {
         // in this case, using IEnumerable cause List has inheritance from this, so i can use IEnumarable for all classes that inherit the interface
-        return movies.Skip(skip).Take(take);
+        return _context.Movies.Skip(skip).Take(take);
     }
 
 
@@ -41,7 +47,7 @@ public class MovieController : ControllerBase
     public IActionResult SortMoviesById(int id)
     {
         // IActionResult because the interface returns the action that was executed
-        var moviesVar = movies.FirstOrDefault(m => m.Id == id);
+        var moviesVar = _context.Movies.FirstOrDefault(m => m.Id == id);
         // NotFound ==> 404 NotFound Error
         if (moviesVar == null) return NotFound();
         // OK ==> 200 Ok Success

@@ -5,6 +5,8 @@ namespace FilmesAPI.Models;
 
 public class Movie
 {
+    [Key] // key of database authentication
+    [Required] // required, but automaticately recieves a value by auto_increment 
     public int Id { get; set; }
     
     // i can use conditionals at instances that i have in my class -- >
