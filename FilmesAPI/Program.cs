@@ -9,6 +9,9 @@ builder.Services.AddDbContext<DataMovieContext>(opts => opts.UseMySql(
     ServerVersion.AutoDetect(builder.Configuration.
     GetConnectionString("MovieConnection"))));
 
+// mapper instance -- >
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

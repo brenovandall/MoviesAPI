@@ -1,4 +1,6 @@
-﻿using FilmesAPI.Data;
+﻿using AutoMapper;
+using FilmesAPI.Data;
+using FilmesAPI.Data.Dtos;
 using FilmesAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,6 +15,7 @@ public class MovieController : ControllerBase
 {
     // using the context class -- > 
     private DataMovieContext _context;
+    private IMapper _mapper;
     // ctor of context, then... need to use context props to reference data
     public MovieController(DataMovieContext context)
     {
@@ -21,17 +24,17 @@ public class MovieController : ControllerBase
 
     // declaring the api method <get, post, ...>
     [HttpPost]
-    public IActionResult AddMovieOnTheList([FromBody] Movie movie)
+    public IActionResult AddMovieOnTheList(
+        [FromBody] CreateMovieDto movieDto)
     {
+        Movie movie = _mapper.Map<Movie>(movieDto);
         // using function " [FromBody] " because the paramether will be declared to the body requisition fields -- >
         _context.Movies.Add(movie);
         _context.SaveChanges();
-        //Console.WriteLine(movie.Id);
-        //Console.WriteLine(movie.Title);
-        //Console.WriteLine(movie.Genre);
-        //Console.WriteLine(movie.Duration_min);
+
         // action that create the movie and returns the location of armazenated data -- >
-        return CreatedAtAction(nameof(SortMoviesById), new { id = movie.Id }, movie);
+        return CreatedAtAction(nameof(SortMoviesById), 
+            new { id = movie.Id }, movie);
     }
 
     // declaring the api method <get, post, ...>
