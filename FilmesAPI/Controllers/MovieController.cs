@@ -17,9 +17,10 @@ public class MovieController : ControllerBase
     private DataMovieContext _context;
     private IMapper _mapper;
     // ctor of context, then... need to use context props to reference data
-    public MovieController(DataMovieContext context)
+    public MovieController(DataMovieContext context, IMapper mapper)
     {
         _context = context;
+        _mapper = mapper;
     }
 
     // declaring the api method <get, post, ...>
