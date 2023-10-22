@@ -28,6 +28,12 @@ public class MovieController : ControllerBase
         [FromBody] CreateMovieDto movieDto)
     {
         Movie movie = _mapper.Map<Movie>(movieDto);
+        //Movie movie = new()
+        //{
+        //    Title = movieDto.Title,
+        //    Genre = movieDto.Genre,
+        //    Duration_min = movieDto.Duration_min
+        //};
         // using function " [FromBody] " because the paramether will be declared to the body requisition fields -- >
         _context.Movies.Add(movie);
         _context.SaveChanges();
