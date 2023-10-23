@@ -13,8 +13,9 @@ namespace FilmesAPI.Controllers;
 // ControllBase is an inheritance that needs to be declared in a controller class
 public class MovieController : ControllerBase
 {
-    // using the context class -- > 
+    // using the context db class -- > 
     private DataMovieContext _context;
+    // using auto mapper -- >
     private IMapper _mapper;
     // ctor of context, then... need to use context props to reference data
     public MovieController(DataMovieContext context, IMapper mapper)
@@ -64,4 +65,30 @@ public class MovieController : ControllerBase
         return Ok(moviesVar);
     }
 
+    // put -- > update any movie
+    [HttpPut("{index}")]
+    public IActionResult UpdateMovie(int index, [FromBody] UpdateMovieDto updatedDto)
+    {
+        var update = _context.Movies.FirstOrDefault(x => x.Id == index);
+        // NotFound ==> 404 NotFound Error
+        if (update == null) return NotFound();
+        // updated movie dto to movie default class -- >
+        _mapper.Map(updatedDto, update);
+        _context.SaveChanges();
+        // NoContent ==> 204 NoContent
+        return NoContent();
+    }
+
+    [HttpDelete("{position}")]
+    public IActionResult DeleteMovie(int position)
+    {
+        var movie = _context.Movies.FirstOrDefault(x => x.Id == position);
+        // NotFound ==> 404 NotFound Error
+        if (position == null) return NotFound();
+        // remove the paramether position movie
+        _context.Remove(movie);
+        _context.SaveChanges();
+        // NoContent ==> 204 NoContent
+        return NoContent();
+    }
 }
