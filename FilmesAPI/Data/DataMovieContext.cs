@@ -12,4 +12,5 @@ public class DataMovieContext : DbContext
     }
     // property that will recieve post elements and data -- >
     public DbSet<Movie> Movies { get; set; }
+    public DbSet<Cine> Cines { get; set; }
 }

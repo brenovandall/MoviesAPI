@@ -1,11 +1,12 @@
 using FilmesAPI.Data;
+using FilmesAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<DataMovieContext>(opts => opts.UseMySql(
-    builder.Configuration.GetConnectionString("MovieConnection"), 
+    builder.Configuration.GetConnectionString("MovieConnection"),
     ServerVersion.AutoDetect(builder.Configuration.
     GetConnectionString("MovieConnection"))));
 
@@ -33,3 +34,8 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
+
+
+
