@@ -45,7 +45,7 @@ public class CineController : ControllerBase
     }
 
     [HttpPut("{index}")]
-    public IActionResult UpdateCine(int index, [FromBody] UpdateMovieDto updated)
+    public IActionResult UpdateCine(int index, [FromQuery] UpdateMovieDto updated)
     {
         var cinevar = _context.Cines.FirstOrDefault(x => x.Id == index);
         if (cinevar == null)
