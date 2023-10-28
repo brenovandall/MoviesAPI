@@ -1,4 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿
+// fields to test the api -- >
+
+//"Street": "7 de Setembro Street",
+//"Number": "344",
+//"City": "Blumenau",
+//"State": "Santa Catarina",
+//"PostalCode": "9090990",
+//"Country": "Brazil"
+
+
+
+
+using System.ComponentModel.DataAnnotations;
 
 namespace FilmesAPI.Data.Dtos;
 

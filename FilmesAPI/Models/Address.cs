@@ -24,4 +24,5 @@ public class Address
     [Required(ErrorMessage ="Country needs to be specified")]
     [StringLength(50)]
     public string Country { get; set; }
+    public virtual Cine Cine { get; set; }
 }
