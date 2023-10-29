@@ -45,13 +45,20 @@ public class MovieController : ControllerBase
             new { id = movie.Id }, movie);
     }
 
-    // declaring the api method <get, post, ...>
     [HttpGet]
-    public IEnumerable<Movie> GetMoviesList([FromQuery] int skip = 0, [FromQuery] int take = 10) // return all movies that were send with post method
+    public IEnumerable<ReadMovieDto> GetMoviesList() // return all movies that were send with post method
     {
         // in this case, using IEnumerable cause List has inheritance from this, so i can use IEnumarable for all classes that inherit the interface
-        return _context.Movies.Skip(skip).Take(take);
+        return _mapper.Map<List<ReadMovieDto>>(_context.Movies.ToList());
     }
+
+    // declaring the api method <get, post, ...>
+    //[HttpGet]
+    //public IEnumerable<Movie> GetMoviesList([FromQuery] int skip = 0, [FromQuery] int take = 10) // return all movies that were send with post method
+    //{
+    //    // in this case, using IEnumerable cause List has inheritance from this, so i can use IEnumarable for all classes that inherit the interface
+    //    return _context.Movies.Skip(skip).Take(take);
+    //}
 
 
     [HttpGet("{id}")]

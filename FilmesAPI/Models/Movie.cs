@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.Infrastructure;
+using System.ComponentModel.DataAnnotations;
 using System.Security.Cryptography.X509Certificates;
 
 namespace FilmesAPI.Models;
@@ -23,5 +24,6 @@ public class Movie
     // in this case, i can use conditional to the min and max range field -- >
     [Range(70, 250, ErrorMessage = "The duration exceeded the time limit")]
     public int Duration_min { get; set; }
+    public virtual ICollection<Session> Sessions { get; set; }
 
 }
