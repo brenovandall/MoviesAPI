@@ -5,8 +5,8 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<DataMovieContext>(opts => opts.UseMySql(
-    builder.Configuration.GetConnectionString("MovieConnection"),
+builder.Services.AddDbContext<DataMovieContext>(opts => opts.UseLazyLoadingProxies().
+    UseMySql(builder.Configuration.GetConnectionString("MovieConnection"),
     ServerVersion.AutoDetect(builder.Configuration.
     GetConnectionString("MovieConnection"))));
 

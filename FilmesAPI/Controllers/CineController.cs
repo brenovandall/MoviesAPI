@@ -33,6 +33,12 @@ public class CineController : ControllerBase
         return CreatedAtAction(nameof(GetCineById), new { id = cine.Id }, cine);
     }
 
+    [HttpGet]
+    public IEnumerable<ReadCineDto> GetAllCines()
+    {
+        return _mapper.Map<List<ReadCineDto>>(_context.Cines.ToList());
+    }
+
     [HttpGet("{id}")]
     public IActionResult GetCineById(int id)
     {
