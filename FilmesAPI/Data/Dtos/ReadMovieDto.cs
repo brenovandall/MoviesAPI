@@ -9,4 +9,5 @@ public class ReadMovieDto
     public string Title { get; set; }
     public string? Genre { get; set; }
     public int Duration_min { get; set; }
+    public ICollection<ReadSessionDto> Sessions { get; set; }
 }

@@ -12,7 +12,9 @@ public class CineProfile : Profile
         CreateMap<CreateCineDto, Cine>();
         CreateMap<Cine, ReadCineDto>()
             .ForMember(cineDto => cineDto.Address, 
-            opt => opt.MapFrom(cine => cine.Address));
+            opt => opt.MapFrom(cine => cine.Address))
+            .ForMember(cineDto => cineDto.Sessions,
+            opt => opt.MapFrom(cine => cine.Sessions)); ;
         CreateMap<UpdateCineDto, Cine>();
     }
     
