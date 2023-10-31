@@ -1,8 +1,12 @@
 using FilmesAPI.Data;
 using FilmesAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//builder.Services.AddControllers().AddJsonOptions(x =>
+//   x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
 
 // Add services to the container.
 builder.Services.AddDbContext<DataMovieContext>(opts => opts.UseLazyLoadingProxies().
