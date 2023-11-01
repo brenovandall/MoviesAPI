@@ -29,7 +29,8 @@ public class SessionController : ControllerBase
         _context.Sessions.Add(session);
         _context.SaveChanges();
 
-        return CreatedAtAction(nameof(GetSessionById), new { id = session.Id }, session);
+        return CreatedAtAction(nameof(GetSessionById), 
+            new { movieid = session.MovieId, cineid = session.CineId }, session);
     }
 
     [HttpGet]
@@ -38,10 +39,11 @@ public class SessionController : ControllerBase
         return _mapper.Map<List<ReadSessionDto>>(_context.Sessions.ToList());
     }
 
-    [HttpGet("{id}")]
-    public IActionResult GetSessionById(int id)
+    [HttpGet("{movieid}/{cineid}")]
+    public IActionResult GetSessionById(int movieid, int cineid)
     {
-        var sessions = _context.Addresses.First(x => x.Id == id);
+        var sessions = _context.Sessions.First(x => x.MovieId == movieid
+        && x.CineId == cineid);
 
         if ( sessions  == null )
         {
